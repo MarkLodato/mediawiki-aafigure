@@ -1,0 +1,94 @@
+This extension adds an <nowiki><aafigure></nowiki> tag to MediaWiki for
+embedding an ASCII art image to be processed by the
+[http://packages.python.org/aafigure/ aafigure] program.
+
+== Usage ==
+
+Enclose your ASCII art image in an <nowiki><aafigure></nowiki> tag.  You may
+use any of the following attributes in the tag to send to the 'aafigure'
+program.
+
+; format=''format''
+: Image output format, if allowed by the administrator.  E.g., "png", "jpg", "svg"
+
+; scale=''float''
+: Scaling factor for image size.
+
+; aspect=''float''
+: Aspect ratio for non-text.
+
+; proportional
+: Use a proportional font instead of a fixed-width font.
+
+; textual
+: Disable fill horizontal detection.  This means that fills must be at least two rows high.
+
+; foreground=''hexcolor''
+: Foreground color as six hex digits, RRGGBB.
+
+; background=''hexcolor''
+: Background color as six hex digits, RRGGBB.
+
+; fill=''hexcolor''
+: Fill color as six hex digits, RRGGBB.
+
+The following options only work when the output format is SVG.  The width and
+height arguments are recommended because the software does not properly figure
+out how large the resulting image is.
+
+; linewidth=''float''
+: Line width.
+
+; width=''pixels''
+: Width of the SVG container in pixels.
+
+; height=''pixels''
+: Height of the SVG container in pixels.
+
+== Example ==
+
+<aafigure textual scale=0.9 background=ffccff>
+/-----------+
+| MediaWiki +----+
+\-----------+    |
+                 v
+                 o-----> Awesome!
+                 ^
+/-----------+    |
+| aafigure  +----+
+\-----------+
+</aafigure>
+
+== Installation ==
+
+Copy this package to an "Aafigure" sub-directory of your extensions directory
+and add the following to your LocalSettings.php:
+
+ require_once("extensions/Aafigure/Aafigure.php");
+
+Also, copy the content of this README to a [[Help:Aafigure]] page.
+
+== Configuration ==
+
+The following variables can be set in you LocalSettings.php file.
+
+; $wgAafigureSettings->aafigure
+: Path to aafigure executable.  Default: "aafigure"
+
+; $wgAafigureSettings->format
+: Image file format, passed as --type to aafigure.  Default: "png"
+
+; $wgAafigureSettings->allowed_formats
+: Array of image formats that users are allowed to use via the "format" option. Default: none
+
+== Bugs ==
+
+SVG support is lacking in many ways.  First, it does not compute the width and
+height automatically; if they are not given manually, the browser draws an
+incorrectly sized container.  Second, it should use img tags on webkit rather
+than an object tag.  Finally, it should fall back to PNG for non-SVG browsers
+(namely Internet Explorer).
+
+== License ==
+
+This work is licensed under the Expat (aka "MIT") license.
