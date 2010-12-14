@@ -138,7 +138,7 @@ function renderAafigure( $input, $args, $parser )
         }
 
         if ( $retval < 0 ) {
-            return '<strong class="error">failed to execute'
+            return '<strong class="error">failed to execute '
                 . $wgAafigureSettings->aafigure . '</strong>';
         }
         else if ( $retval > 0 ) {
