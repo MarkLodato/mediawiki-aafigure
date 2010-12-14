@@ -153,7 +153,7 @@ function renderAafigure( $input, $args, $parser )
             $width = ' width="' . $width . '"';
         if ( $height > 0 )
             $height = ' height="' . $height . '"';
-        return '<object data="' . $src . $width . $height . '"></object>';
+        return '<object type="image/svg+xml" data="'.$src.$width.$height.'" />';
     }
     else {
         return '<img src="' . $src . '" />';
