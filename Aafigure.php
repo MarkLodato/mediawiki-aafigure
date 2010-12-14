@@ -44,7 +44,7 @@ $wgExtensionCredits['parserhook'][] = array(
     'author' => '[mailto:lodatom@gmail.com Mark Lodato]',
     'url' => 'http://www.mediawiki.org/wiki/Extension:Aafigure',
     'description' => 'Parse ASCII Art images in "aafigure".',
-    'version' => '1.0'
+    'version' => '1.0.1'
 );
 
 function wfAafigureTag() {
