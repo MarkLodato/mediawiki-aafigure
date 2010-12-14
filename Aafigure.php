@@ -28,7 +28,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 class AafigureSettings {
-    public $aafigure, $format;
+    public $aafigure, $format, $allowed_formats;
 };
 
 $wgAafigureSettings = new AafigureSettings();
@@ -36,20 +36,20 @@ $wgAafigureSettings->aafigure = 'aafigure';
 $wgAafigureSettings->format = 'png';
 $wgAafigureSettings->allowed_formats = array();
 
-$wgExtensionFunctions[] = "wfAafigureTag";
+$wgExtensionFunctions[] = 'wfAafigureTag';
 
 $wgExtensionCredits['parserhook'][] = array(
     'path' => __FILE__,
-    'name'=>'Aafigure',
-    'author'=>'[mailto:lodatom@gmail.com Mark Lodato]',
-    'url'=> 'http://www.mediawiki.org/wiki/Extension:Aafigure',
-    'description'=>'Parse ASCII Art images in "aafigure".',
-    'version'=>'1.0'
+    'name' => 'Aafigure',
+    'author' => '[mailto:lodatom@gmail.com Mark Lodato]',
+    'url' => 'http://www.mediawiki.org/wiki/Extension:Aafigure',
+    'description' => 'Parse ASCII Art images in "aafigure".',
+    'version' => '1.0'
 );
 
 function wfAafigureTag() {
     global $wgParser;
-    $wgParser->setHook( "aafigure", "renderAafigure" );
+    $wgParser->setHook( 'aafigure', 'renderAafigure' );
 }
 
 function renderAafigure( $input, $args, $parser )
@@ -63,6 +63,7 @@ function renderAafigure( $input, $args, $parser )
     $options = '';
     $width = 0;
     $height = 0;
+    $error = false;
     foreach ($args as $name => $value) {
         switch ($name) {
         case 'format':
@@ -118,9 +119,9 @@ function renderAafigure( $input, $args, $parser )
         }
 
         $descriptors = array(
-            0 => array("pipe", "r"),
-            1 => array("pipe", "w"),
-            2 => array("pipe", "w")
+            0 => array('pipe', 'r'),
+            1 => array('pipe', 'w'),
+            2 => array('pipe', 'w')
         );
         $pipes = array();
         $process = proc_open( $cmd, $descriptors, $pipes );
@@ -148,9 +149,9 @@ function renderAafigure( $input, $args, $parser )
 
     $src = $wgUploadPath . $subdir . $hash . '.' . $extension;
     if ( $format == 'svg' ) {
-        if ($width > 0)
+        if ( $width > 0 )
             $width = ' width="' . $width . '"';
-        if ($height > 0)
+        if ( $height > 0 )
             $height = ' height="' . $height . '"';
         return '<object data="' . $src . $width . $height . '"></object>';
     }
